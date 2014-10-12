@@ -13,26 +13,26 @@ public class SimulatedAnnealing {
 
     State state;
     double temperature;
-    double temperatureDecrease = 10;
-    final static double T_MAX = 100.0;
-    final static double F_TARGET = 100.0;
+    double temperatureDecrease = 0.001;
+    final static double T_MAX = 1;
+    final static double F_TARGET = 1;
 
     ObjectiveFunction objectiveFunction;
     NeighbourGenerator neighbourGenerator;
+    State initialState;
 
     public SimulatedAnnealing(Problem problem) {
         this.objectiveFunction = problem.getObjectiveFunction();
         this.neighbourGenerator = problem.getNeighbourGenerator();
+        this.initialState = problem.getInitialState();
     }
 
     public State search() {
-
-        State initialState = new State();
         temperature = T_MAX;
         State currentState = initialState;
-        double stateValue = objectiveFunction.evaluate(initialState);
-        while (objectiveFunction.evaluate(initialState) < F_TARGET) {
-            ArrayList<State> neighbours = neighbourGenerator.generateNeighbours(initialState);
+        double stateValue;
+        while ((stateValue = objectiveFunction.evaluate(currentState)) < F_TARGET) {
+            ArrayList<State> neighbours = neighbourGenerator.generateNeighbours(currentState);
             double bestNeighbourValue = 0.0;
             double neighbourValue;
             State bestNeighbour = neighbours.get(0);
@@ -43,7 +43,7 @@ public class SimulatedAnnealing {
                     bestNeighbour = neighbour;
                 }
             }
-            double q = (bestNeighbourValue - stateValue) / (stateValue); //TODO CHECK IF DOUBLE DIV OR INT DIV
+            double q = (bestNeighbourValue - stateValue) / (stateValue);
             double p = Math.min(1, Math.exp(-q / temperature));
             double x = Math.random();
             if (x > p) {
@@ -52,6 +52,8 @@ public class SimulatedAnnealing {
                 currentState = chooseRandomNeighbour(neighbours);
             }
             temperature -= temperatureDecrease;
+            //System.out.println("temp: "+temperature);
+            //System.out.println(currentState);
         }
         return currentState;
     }
