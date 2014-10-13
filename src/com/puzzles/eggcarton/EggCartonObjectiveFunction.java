@@ -36,10 +36,6 @@ public class EggCartonObjectiveFunction implements ObjectiveFunction {
                     } else if (eggs.get(i).getY() - eggs.get(i).getX() == eggs.get(j).getY() - eggs.get(j).getX()) {
                         diagonalCollisions++;
                     }
-
-                    if (eggs.get(i).getY() < 0 || eggs.get(i).getY() >= eggCartonState.getHeight()) {
-                        invalidPositions++;
-                    }
                     if (eggs.get(i).equals(eggs.get(j))) {
                         invalidPositions++;
                     }

@@ -27,7 +27,9 @@ public class EggCartonNeighbourGenerator implements NeighbourGenerator {
                     } else {
                         neighbour.getEggs().get(i).setY(neighbour.getEggs().get(i).getY()-1);
                     }
-                    neighbours.add(neighbour);
+                    if (neighbour.getEggs().get(i).getY() >= 0 && neighbour.getEggs().get(i).getY() < neighbour.getHeight()) {
+                        neighbours.add(neighbour);
+                    }
                 }
 
             }

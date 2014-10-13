@@ -13,8 +13,8 @@ public class SimulatedAnnealing {
 
     State state;
     double temperature;
-    double temperatureDecrease = 0.001;
-    final static double T_MAX = 1;
+    double temperatureDecrease = 0.01;
+    final static double T_MAX = 100;
     final static double F_TARGET = 1;
 
     ObjectiveFunction objectiveFunction;
@@ -31,7 +31,7 @@ public class SimulatedAnnealing {
         temperature = T_MAX;
         State currentState = initialState;
         double stateValue;
-        while ((stateValue = objectiveFunction.evaluate(currentState)) < F_TARGET) {
+        while ((stateValue = objectiveFunction.evaluate(currentState)) < F_TARGET && temperature > 0) {
             ArrayList<State> neighbours = neighbourGenerator.generateNeighbours(currentState);
             double bestNeighbourValue = 0.0;
             double neighbourValue;
@@ -52,7 +52,7 @@ public class SimulatedAnnealing {
                 currentState = chooseRandomNeighbour(neighbours);
             }
             temperature -= temperatureDecrease;
-            //System.out.println("temp: "+temperature);
+            System.out.println("temp: "+temperature);
             //System.out.println(currentState);
         }
         return currentState;

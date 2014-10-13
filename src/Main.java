@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Main {
     public static void main(String[] args) {
-        EggCartonState state = new EggCartonState(5, 5, 2);
+        EggCartonState state = new EggCartonState(10, 10, 3);
         EggCartonNeighbourGenerator neighbourGenerator = new EggCartonNeighbourGenerator();
         EggCartonObjectiveFunction objectiveFunction = new EggCartonObjectiveFunction();
         Problem problem = new Problem(state, objectiveFunction, neighbourGenerator);
@@ -22,6 +22,7 @@ public class Main {
         System.out.println("WINNING");
         System.out.println(state2.toString());
         System.out.println(state2.getEggs());
-        String tore;
+        double test = objectiveFunction.evaluate(state2);
+        System.out.println(test);
     }
 }
