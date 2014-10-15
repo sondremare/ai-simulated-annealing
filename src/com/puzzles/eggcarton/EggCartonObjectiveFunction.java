@@ -11,8 +11,6 @@ import java.util.ArrayList;
  */
 public class EggCartonObjectiveFunction implements ObjectiveFunction {
 
-    //TODO CHange to count number of achieved eggs placed minus misplaced ones.
-
     @Override
     public double evaluate(State state) {
         if (state instanceof EggCartonState) {
@@ -51,13 +49,7 @@ public class EggCartonObjectiveFunction implements ObjectiveFunction {
                 }
                 totalDisallowedCollisions += invalidPositions;
             }
-            if (totalDisallowedCollisions == 0) {
-                return 1;
-            }
-            else {
-                double value = Math.exp(-((double)totalDisallowedCollisions/10));
-                return value;
-            }
+            return Math.exp(-((double)totalDisallowedCollisions/10));
 
         }
         return 0;

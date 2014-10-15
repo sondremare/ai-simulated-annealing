@@ -11,10 +11,9 @@ import java.util.ArrayList;
  */
 public class SimulatedAnnealing {
 
-    State state;
     double temperature;
-    double temperatureDecrease = 0.01;
-    final static double T_MAX = 100;
+    double temperatureDecrease = 0.0001;
+    final static double T_MAX = 1000;
     final static double F_TARGET = 1;
 
     ObjectiveFunction objectiveFunction;
@@ -52,8 +51,6 @@ public class SimulatedAnnealing {
                 currentState = chooseRandomNeighbour(neighbours);
             }
             temperature -= temperatureDecrease;
-            System.out.println("temp: "+temperature);
-            //System.out.println(currentState);
         }
         return currentState;
     }
